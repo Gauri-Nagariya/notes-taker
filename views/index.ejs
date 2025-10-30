@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task App</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white min-h-screen flex flex-col items-center">
+
+  <!-- Header -->
+  <header class="w-full text-center py-10">
+    <h1 class="text-4xl font-extrabold tracking-tight text-blue-400 drop-shadow-lg">My Task Manager</h1>
+    <p class="text-zinc-400 mt-2">Stay organized. Add your tasks below.</p>
+  </header>
+
+  <!-- Task Form -->
+  <section class="w-full max-w-lg bg-zinc-800 shadow-xl rounded-2xl p-8 mb-10">
+    <form action="/create" method="post" class="flex flex-col gap-5">
+      <input
+        class="p-3 bg-zinc-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        type="text"
+        name="title"
+        placeholder="Task title..."
+        required
+      />
+      <textarea
+        class="p-3 bg-zinc-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 min-h-[100px]"
+        name="details"
+        placeholder="Task details..."
+        required
+      ></textarea>
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white font-semibold py-3 rounded-lg shadow-lg"
+      >
+        Add Task
+      </button>
+    </form>
+  </section>
+
+  <!-- Task List -->
+  <section class="tasks flex flex-wrap justify-center gap-6 w-full max-w-6xl px-6 pb-20">
+    <% if (files && files.length > 0) { %>
+      <% files.forEach(function(val){ %>
+        <div
+          class="task bg-zinc-800 hover:bg-zinc-700 transition-all duration-200 rounded-2xl shadow-lg w-[300px] p-5"
+        >
+          <h1 class="text-xl font-semibold text-gray-400 mb-2"><%= val %></h1>
+          <!-- <p class="text-zinc-300 text-sm leading-relaxed"><%= val.details %></p> -->
+           <a class="text-blue-400 text-sm leading-relaxed" href="/files/<%= encodeURIComponent(val) %>">read more</a>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="text-center text-zinc-400 text-lg mt-10">
+        <h2>No tasks yet — start by adding one above!</h2>
+      </div>
+    <% } %>
+  </section>
+
+</body>
+</html>
